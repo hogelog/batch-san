@@ -1,0 +1,4 @@
+name: sample-recipe
+job: sample
+options:
+  timeout: 1000
