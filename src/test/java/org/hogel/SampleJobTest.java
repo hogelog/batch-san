@@ -30,6 +30,6 @@ public class SampleJobTest {
         SampleJob job = jobManager.createBatchJob(recipe);
         JobResult result = job.run();
 
-        assertThat(result.getBody(), is("timeout: 1000"));
+        assertThat(result.getBody(), is("timeout: 1000, params: [10,20]"));
     }
 }

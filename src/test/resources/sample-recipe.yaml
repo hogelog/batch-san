@@ -2,3 +2,6 @@ name: sample-recipe
 job: sample
 options:
   timeout: 1000
+params:
+  - 10
+  - 20

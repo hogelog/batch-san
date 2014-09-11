@@ -1,5 +1,6 @@
 package org.hogel;
 
+import com.google.common.base.Joiner;
 import org.hogel.batchsan.BasicJobResult;
 import org.hogel.batchsan.BatchJob;
 import org.hogel.batchsan.JobResult;
@@ -17,8 +18,9 @@ public class SampleJob extends BatchJob {
 
     @Override
     public JobResult run() throws Exception {
+        String params = String.format("[%s]", Joiner.on(',').join(getParams()));
         Options options = getOptions();
         int timeout = options.getInt("timeout");
-        return BasicJobResult.success("timeout: " + timeout);
+        return BasicJobResult.success("timeout: " + timeout + ", params: " + params);
     }
 }

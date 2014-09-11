@@ -9,7 +9,7 @@ import org.hogel.batchsan.recipe.JobRecipe;
 import org.hogel.config.SampleConfig;
 
 @BatchJobName("sample_config")
-public class SampleConfigJob extends  BatchJob {
+public class SampleConfigJob extends BatchJob {
 
     @Inject
     SampleConfig config;
