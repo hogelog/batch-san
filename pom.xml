@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.hogel</groupId>
             <artifactId>ya-config-loader</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -50,6 +50,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.5.2</version>
         </dependency>
 
         <dependency>

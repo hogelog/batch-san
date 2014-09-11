@@ -1,6 +1,7 @@
-package org.hogel.config;
+package org.hogel.batchsan.config;
 
 import lombok.Data;
+import org.hogel.config.Config;
 import org.hogel.config.annotation.Attribute;
 import org.hogel.config.annotation.IntDefaultValue;
 

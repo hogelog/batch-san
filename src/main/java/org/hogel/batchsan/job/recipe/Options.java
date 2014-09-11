@@ -1,4 +1,4 @@
-package org.hogel.batchsan.recipe;
+package org.hogel.batchsan.job.recipe;
 
 import java.util.HashMap;
 import java.util.Map;

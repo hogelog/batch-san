@@ -3,8 +3,10 @@ package org.hogel.batchsan;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import lombok.Getter;
 import org.hogel.batchsan.annotation.BatchJobName;
-import org.hogel.batchsan.recipe.JobRecipe;
+import org.hogel.batchsan.job.BatchJob;
+import org.hogel.batchsan.job.recipe.JobRecipe;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ public class BatchJobManager {
 
     private final Map<String, Class<? extends BatchJob>> jobClasses = new HashMap<>();
 
+    @Getter
     private final Injector injector;
 
     public BatchJobManager(Module... modules) {

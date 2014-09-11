@@ -1,8 +1,8 @@
-package org.hogel.guice;
+package org.hogel.batchsan.guice;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import org.hogel.config.SampleConfig;
+import org.hogel.batchsan.config.SampleConfig;
 
 public class SampleConfigModule implements Module {
     private final SampleConfig config;

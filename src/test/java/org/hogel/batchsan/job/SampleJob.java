@@ -1,12 +1,11 @@
-package org.hogel;
+package org.hogel.batchsan.job;
 
 import com.google.common.base.Joiner;
-import org.hogel.batchsan.BasicJobResult;
-import org.hogel.batchsan.BatchJob;
-import org.hogel.batchsan.JobResult;
 import org.hogel.batchsan.annotation.BatchJobName;
-import org.hogel.batchsan.recipe.JobRecipe;
-import org.hogel.batchsan.recipe.Options;
+import org.hogel.batchsan.job.recipe.JobRecipe;
+import org.hogel.batchsan.job.recipe.Options;
+import org.hogel.batchsan.job.result.BasicJobResult;
+import org.hogel.batchsan.job.result.JobResult;
 
 @BatchJobName("sample")
 public class SampleJob extends BatchJob {
