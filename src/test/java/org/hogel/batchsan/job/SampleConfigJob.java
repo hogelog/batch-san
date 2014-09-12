@@ -1,13 +1,11 @@
 package org.hogel.batchsan.job;
 
 import com.google.inject.Inject;
-import org.hogel.batchsan.annotation.BatchJobName;
 import org.hogel.batchsan.config.SampleConfig;
 import org.hogel.batchsan.job.recipe.JobRecipe;
 import org.hogel.batchsan.job.result.BasicJobResult;
 import org.hogel.batchsan.job.result.JobResult;
 
-@BatchJobName("sample_config")
 public class SampleConfigJob extends BatchJob {
 
     @Inject

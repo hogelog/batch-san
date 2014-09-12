@@ -1,4 +1,3 @@
-name: sample-config
 job: sample_config
 options:
   timeout: 1000

@@ -23,6 +23,5 @@ public abstract class BatchJob {
         params = recipe.getParams();
     }
 
-
     public abstract JobResult run() throws Exception;
 }
