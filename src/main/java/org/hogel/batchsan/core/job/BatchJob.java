@@ -1,10 +1,10 @@
-package org.hogel.batchsan.job;
+package org.hogel.batchsan.core.job;
 
 import com.google.inject.Inject;
 import lombok.Data;
-import org.hogel.batchsan.job.recipe.JobRecipe;
-import org.hogel.batchsan.job.recipe.Options;
-import org.hogel.batchsan.job.result.JobResult;
+import org.hogel.batchsan.core.job.recipe.JobRecipe;
+import org.hogel.batchsan.core.job.recipe.Options;
+import org.hogel.batchsan.core.job.result.JobResult;
 
 import java.util.List;
 

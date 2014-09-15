@@ -1,8 +1,8 @@
-package org.hogel.batchsan.job;
+package org.hogel.batchsan.core.job;
 
-import org.hogel.batchsan.BatchJobManager;
-import org.hogel.batchsan.job.recipe.JobRecipe;
-import org.hogel.batchsan.job.result.JobResult;
+import org.hogel.batchsan.core.BatchJobManager;
+import org.hogel.batchsan.core.job.recipe.JobRecipe;
+import org.hogel.batchsan.core.job.result.JobResult;
 import org.junit.Before;
 import org.junit.Test;
 

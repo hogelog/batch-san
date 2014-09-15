@@ -1,4 +1,4 @@
-package org.hogel.batchsan.job.result;
+package org.hogel.batchsan.core.job.result;
 
 public interface JobResult {
     boolean isSuccess();

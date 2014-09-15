@@ -1,10 +1,10 @@
-package org.hogel.batchsan.job;
+package org.hogel.batchsan.core.job;
 
 import com.google.inject.Inject;
-import org.hogel.batchsan.config.SampleConfig;
-import org.hogel.batchsan.job.recipe.JobRecipe;
-import org.hogel.batchsan.job.result.BasicJobResult;
-import org.hogel.batchsan.job.result.JobResult;
+import org.hogel.batchsan.test.config.SampleConfig;
+import org.hogel.batchsan.core.job.recipe.JobRecipe;
+import org.hogel.batchsan.core.job.result.BasicJobResult;
+import org.hogel.batchsan.core.job.result.JobResult;
 
 public class SampleConfigJob extends BatchJob {
 

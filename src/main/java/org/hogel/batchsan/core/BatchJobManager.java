@@ -1,14 +1,14 @@
-package org.hogel.batchsan;
+package org.hogel.batchsan.core;
 
 import com.google.common.base.CaseFormat;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.Getter;
-import org.hogel.batchsan.annotation.BatchJobName;
-import org.hogel.batchsan.job.BatchJob;
-import org.hogel.batchsan.job.NopJob;
-import org.hogel.batchsan.job.recipe.JobRecipe;
+import org.hogel.batchsan.core.annotation.BatchJobName;
+import org.hogel.batchsan.core.job.BatchJob;
+import org.hogel.batchsan.core.job.NopJob;
+import org.hogel.batchsan.core.job.recipe.JobRecipe;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package org.hogel.batchsan.config;
+package org.hogel.batchsan.test.config;
 
 import lombok.Data;
 import org.hogel.config.Config;

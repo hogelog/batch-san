@@ -1,8 +1,8 @@
 package org.hogel.batchsan.daemon;
 
-import org.hogel.batchsan.BatchJobManager;
-import org.hogel.batchsan.job.BatchJob;
-import org.hogel.batchsan.job.recipe.JobRecipe;
+import org.hogel.batchsan.core.BatchJobManager;
+import org.hogel.batchsan.core.job.BatchJob;
+import org.hogel.batchsan.core.job.recipe.JobRecipe;
 import org.hogel.config.InvalidConfigException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

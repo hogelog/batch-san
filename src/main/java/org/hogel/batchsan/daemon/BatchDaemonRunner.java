@@ -1,6 +1,6 @@
 package org.hogel.batchsan.daemon;
 
-import org.hogel.batchsan.BatchJobManager;
+import org.hogel.batchsan.core.BatchJobManager;
 
 public class BatchDaemonRunner {
     public static void main(String[] args) {

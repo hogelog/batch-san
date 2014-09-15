@@ -1,4 +1,4 @@
-package org.hogel.batchsan.job.recipe;
+package org.hogel.batchsan.core.job.recipe;
 
 import org.hogel.config.loader.AttributeLoader;
 import org.hogel.config.loader.InvalidAttributeException;
