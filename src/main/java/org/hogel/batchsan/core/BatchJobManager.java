@@ -26,6 +26,18 @@ public class BatchJobManager {
 
     private final Map<String, Class<? extends BatchJob>> jobClasses = new HashMap<>();
 
+    public static String getJobName(Class<? extends BatchJob> jobClass) {
+        String name;
+        BatchJobName jobNameAnnotation = jobClass.getAnnotation(BatchJobName.class);
+        if (jobNameAnnotation != null) {
+            name = jobNameAnnotation.value();
+        } else {
+            String className = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, jobClass.getSimpleName());
+            name = JOB_CLASS_SUFFIX_PATTERN.matcher(className).replaceFirst("");
+        }
+        return name;
+    }
+
     @Getter
     private final Injector injector;
 
@@ -45,14 +57,7 @@ public class BatchJobManager {
     }
 
     public synchronized void registerJobClass(Class<? extends BatchJob> jobClass) {
-        String name;
-        BatchJobName jobNameAnnotation = jobClass.getAnnotation(BatchJobName.class);
-        if (jobNameAnnotation != null) {
-            name = jobNameAnnotation.value();
-        } else {
-            String className = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, jobClass.getSimpleName());
-            name = JOB_CLASS_SUFFIX_PATTERN.matcher(className).replaceFirst("");
-        }
+        String name = getJobName(jobClass);
         if (jobClasses.containsKey(name)) {
             throw new IllegalArgumentException(String.format("%s is already registered job", name));
         }
@@ -70,5 +75,9 @@ public class BatchJobManager {
         } catch (ReflectiveOperationException e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    public Map<String, Class<? extends BatchJob>> getJobClasses() {
+        return jobClasses;
     }
 }
