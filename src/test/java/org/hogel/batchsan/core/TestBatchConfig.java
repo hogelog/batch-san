@@ -9,4 +9,8 @@ public class TestBatchConfig extends BatchConfig {
     @Attribute
     @StringDefaultValue("jdbc:h2:./target/test")
     String databaseUrl;
+
+    @Attribute
+    @StringDefaultValue("batchsan-test")
+    String redisNamespace;
 }

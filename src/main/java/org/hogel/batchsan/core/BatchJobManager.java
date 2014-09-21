@@ -5,9 +5,12 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import lombok.Getter;
 import org.hogel.batchsan.core.annotation.BatchJobName;
+import org.hogel.batchsan.core.guice.BatchBasicModule;
 import org.hogel.batchsan.core.job.BatchJob;
 import org.hogel.batchsan.core.job.NopJob;
 import org.hogel.batchsan.core.job.recipe.JobRecipe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -19,6 +22,8 @@ public class BatchJobManager {
     public static final Class<? extends BatchJob>[] BASIC_JOB_CLASSES = new Class[] {
         NopJob.class,
     };
+
+    private static final Logger LOG = LoggerFactory.getLogger(BatchJobManager.class);
 
     private static final Pattern JOB_CLASS_SUFFIX_PATTERN = Pattern.compile("_job$");
 

@@ -196,4 +196,38 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>create-test-db</id>
+            <build>
+                <defaultGoal>sql:execute</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
+                                <version>1.4.181</version>
+                            </dependency>
+                        </dependencies>
+
+                        <configuration>
+                            <driver>org.h2.Driver</driver>
+                            <url>jdbc:h2:./target/test</url>
+                            <username>username</username>
+                            <password>password</password>
+                            <srcFiles>
+                                <srcFile>${project.basedir}/src/test/resources/sql/database.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
