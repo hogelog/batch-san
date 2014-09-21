@@ -3,7 +3,6 @@ package org.hogel.batchsan.core;
 import com.google.common.base.CaseFormat;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 import lombok.Getter;
 import org.hogel.batchsan.core.annotation.BatchJobName;
 import org.hogel.batchsan.core.job.BatchJob;
@@ -12,7 +11,6 @@ import org.hogel.batchsan.core.job.recipe.JobRecipe;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -41,12 +39,8 @@ public class BatchJobManager {
     @Getter
     private final Injector injector;
 
-    public BatchJobManager(Module... modules) {
-        this(Guice.createInjector(modules));
-    }
-
-    public BatchJobManager(List<Module> modules) {
-        this(Guice.createInjector(modules));
+    public BatchJobManager(BatchConfig config) {
+        this(Guice.createInjector(new BatchBasicModule(config)));
     }
 
     public BatchJobManager(Injector injector) {

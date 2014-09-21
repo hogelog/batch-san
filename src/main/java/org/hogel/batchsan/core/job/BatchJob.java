@@ -2,6 +2,7 @@ package org.hogel.batchsan.core.job;
 
 import com.google.inject.Inject;
 import lombok.Data;
+import org.hogel.batchsan.core.BatchConfig;
 import org.hogel.batchsan.core.job.recipe.JobRecipe;
 import org.hogel.batchsan.core.job.recipe.Options;
 import org.hogel.batchsan.core.job.result.JobResult;
@@ -10,11 +11,14 @@ import java.util.List;
 
 @Data
 public abstract class BatchJob {
-    private final JobRecipe recipe;
+    protected final JobRecipe recipe;
 
-    private final Options options;
+    protected final Options options;
 
-    private final List<Object> params;
+    protected final List<Object> params;
+
+    @Inject
+    protected BatchConfig config;
 
     @Inject
     public BatchJob(JobRecipe recipe) {

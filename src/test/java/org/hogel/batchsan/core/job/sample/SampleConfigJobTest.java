@@ -1,10 +1,9 @@
-package org.hogel.batchsan.core.job;
+package org.hogel.batchsan.core.job.sample;
 
 import org.hogel.batchsan.core.BatchJobManager;
-import org.hogel.batchsan.test.config.SampleConfig;
-import org.hogel.batchsan.test.guice.SampleConfigModule;
 import org.hogel.batchsan.core.job.recipe.JobRecipe;
 import org.hogel.batchsan.core.job.result.JobResult;
+import org.hogel.batchsan.test.config.SampleConfig;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +23,7 @@ public class SampleConfigJobTest {
     public void setUp() throws Exception {
         config = new SampleConfig();
         config.load("sleep: 3000");
-        jobManager = new BatchJobManager(new SampleConfigModule(config));
+        jobManager = new BatchJobManager(config);
         jobManager.registerJobClass(SampleConfigJob.class);
 
         recipe = new JobRecipe();

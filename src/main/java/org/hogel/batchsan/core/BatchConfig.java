@@ -35,4 +35,20 @@ public class BatchConfig extends Config {
     @Attribute
     @IntDefaultValue(8080)
     int webPort;
+
+    @Attribute
+    @StringDefaultValue("org.h2.Driver")
+    String databaseDriver;
+
+    @Attribute
+    @StringDefaultValue("jdbc:h2:./batch")
+    String databaseUrl;
+
+    @Attribute
+    @StringDefaultValue("username")
+    String databaseUsername;
+
+    @Attribute
+    @StringDefaultValue("password")
+    String databasePassword;
 }
