@@ -7,7 +7,7 @@ import org.hogel.config.annotation.StringDefaultValue;
 @Data
 public class TestBatchConfig extends BatchConfig {
     @Attribute
-    @StringDefaultValue("jdbc:h2:./target/test")
+    @StringDefaultValue("jdbc:h2:./target/db/test")
     String databaseUrl;
 
     @Attribute

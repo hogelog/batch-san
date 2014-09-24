@@ -25,8 +25,8 @@ public class JobRecipeLogTable extends BatchDatabaseTable {
         update(
             connection,
             "UPDATE `job_recipe_log` SET `status` = ? WHERE `id` = ?",
-            logId,
-            status
+            status,
+            logId
         );
     }
 
