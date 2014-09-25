@@ -37,11 +37,11 @@ public class BatchConfig extends Config {
     int webPort;
 
     @Attribute
-    @StringDefaultValue("org.h2.Driver")
+    @StringDefaultValue("com.mysql.jdbc.Driver")
     String databaseDriver;
 
     @Attribute
-    @StringDefaultValue("jdbc:h2:./batch")
+    @StringDefaultValue("jdbc:mysql://localhost:3306/batchsan")
     String databaseUrl;
 
     @Attribute

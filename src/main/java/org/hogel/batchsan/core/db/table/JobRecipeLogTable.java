@@ -12,7 +12,7 @@ public class JobRecipeLogTable extends BatchDatabaseTable {
     public static final int FAILURE = 2;
 
     public long insertLog(Connection connection, String job) throws SQLException {
-        return updateAndIdentity(
+        return updateAndLastInsertId(
             connection,
             "INSERT INTO `job_recipe_log` (`job`, `created_at`, `updated_at`) VALUES (?, NOW(), NOW())",
             job
@@ -22,7 +22,7 @@ public class JobRecipeLogTable extends BatchDatabaseTable {
     public void updateLogStatus(Connection connection, long logId, int status) throws SQLException {
         update(
             connection,
-            "UPDATE `job_recipe_log` SET `status` = ? WHERE `id` = ?",
+            "UPDATE `job_recipe_log` SET `status` = ?, `updated_at` = NOW() WHERE `id` = ?",
             status,
             logId
         );

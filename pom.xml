@@ -102,6 +102,11 @@
             <version>3.0.8.Final</version>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.32</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.181</version>
@@ -217,7 +222,7 @@
 
                         <configuration>
                             <driver>org.h2.Driver</driver>
-                            <url>jdbc:h2:file:${basedir}/target/db/test</url>
+                            <url>jdbc:h2:file:${basedir}/target/db/test;MODE=MySQL</url>
                             <username>username</username>
                             <password>password</password>
                             <srcFiles>
@@ -242,7 +247,7 @@
                             <mainClass>org.h2.tools.Shell</mainClass>
                             <arguments>
                                 <argument>-url</argument>
-                                <argument>jdbc:h2:file:${basedir}/target/db/test</argument>
+                                <argument>jdbc:h2:file:${basedir}/target/db/test;MODE=MySQL</argument>
                                 <argument>-user</argument>
                                 <username>username</username>
                                 <argument>-password</argument>
