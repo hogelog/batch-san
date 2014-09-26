@@ -24,7 +24,7 @@ public class DatabaseJob extends BatchJob {
     @Override
     public JobResult run() throws Exception {
         try (Connection connection = connections.getConnection()) {
-            dbClient.update(connection, "CREATE TABLE IF NOT EXISTS hoge;");
+            dbClient.update(connection, "CREATE TABLE IF NOT EXISTS hoge (id INT);");
             long count = (long) dbClient.query(connection, "SELECT COUNT(1) FROM hoge;")[0];
             dbClient.update(connection, "DROP TABLE hoge;");
             return BasicJobResult.success("count: " + count);

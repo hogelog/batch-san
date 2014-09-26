@@ -7,11 +7,7 @@ import org.hogel.config.annotation.StringDefaultValue;
 @Data
 public class TestBatchConfig extends BatchConfig {
     @Attribute
-    @StringDefaultValue("org.h2.Driver")
-    String databaseDriver;
-
-    @Attribute
-    @StringDefaultValue("jdbc:h2:./target/db/test;MODE=MySQL")
+    @StringDefaultValue("jdbc:mysql://localhost/batchsan_test")
     String databaseUrl;
 
     @Attribute

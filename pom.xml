@@ -44,6 +44,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.test.sourceEncoding>UTF-8</project.test.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.db.name.test>batchsan_test</project.db.name.test>
+        <project.db.url.test>jdbc:mysql://localhost/${project.db.name.test}</project.db.url.test>
     </properties>
 
     <repositories>
@@ -105,11 +107,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.32</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.181</version>
         </dependency>
         <dependency>
             <groupId>commons-dbutils</groupId>
@@ -214,19 +211,19 @@
 
                         <dependencies>
                             <dependency>
-                                <groupId>com.h2database</groupId>
-                                <artifactId>h2</artifactId>
-                                <version>1.4.181</version>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.32</version>
                             </dependency>
                         </dependencies>
 
                         <configuration>
-                            <driver>org.h2.Driver</driver>
-                            <url>jdbc:h2:file:${basedir}/target/db/test;MODE=MySQL</url>
-                            <username>username</username>
-                            <password>password</password>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>${project.db.url.test}</url>
+                            <username>${local.db.user}</username>
+                            <password>${local.db.password}</password>
                             <srcFiles>
-                                <srcFile>${project.basedir}/src/test/resources/sql/database.sql</srcFile>
+                                <srcFile>${project.basedir}/db/migration/init_database.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </plugin>
@@ -234,25 +231,31 @@
             </build>
         </profile>
         <profile>
-            <id>test-db-shell</id>
+            <id>test-db-flyway</id>
             <build>
-                <defaultGoal>exec:java</defaultGoal>
+                <defaultGoal>flyway:info</defaultGoal>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.3.2</version>
+                        <groupId>org.flywaydb</groupId>
+                        <artifactId>flyway-maven-plugin</artifactId>
+                        <version>3.0</version>
+
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.32</version>
+                            </dependency>
+                        </dependencies>
 
                         <configuration>
-                            <mainClass>org.h2.tools.Shell</mainClass>
-                            <arguments>
-                                <argument>-url</argument>
-                                <argument>jdbc:h2:file:${basedir}/target/db/test;MODE=MySQL</argument>
-                                <argument>-user</argument>
-                                <username>username</username>
-                                <argument>-password</argument>
-                                <argument>password</argument>
-                            </arguments>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>${project.db.url.test}</url>
+                            <user>username</user>
+                            <password>password</password>
+                            <locations>
+                                <location>filesystem:${project.basedir}/db/migration</location>
+                            </locations>
                         </configuration>
                     </plugin>
                 </plugins>
