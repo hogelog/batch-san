@@ -1,6 +1,8 @@
 package org.hogel.batchsan.core.db.table;
 
+import com.google.common.base.Optional;
 import org.hogel.batchsan.core.db.table.record.JobRecipeLogRecord;
+import org.hogel.batchsan.core.job.recipe.JobRecipe;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,6 +18,20 @@ public class JobRecipeLogTable extends BatchDatabaseTable {
             connection,
             "INSERT INTO `job_recipe_log` (`job`, `created_at`, `updated_at`) VALUES (?, NOW(), NOW())",
             job
+        );
+    }
+
+    public long insertLog(Connection connection, JobRecipe jobRecipe) throws SQLException {
+        String job = jobRecipe.getJob();
+        Optional<Long> jobRecipeId= jobRecipe.getJobRecipeId();
+        if (!jobRecipeId.isPresent()) {
+            return insertLog(connection, job);
+        }
+        return updateAndLastInsertId(
+            connection,
+            "INSERT INTO `job_recipe_log` (`job`, `job_recipe_id`, `created_at`, `updated_at`) VALUES (?, ?, NOW(), NOW())",
+            job,
+            jobRecipeId.get()
         );
     }
 

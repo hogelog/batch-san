@@ -11,6 +11,8 @@ public class JobRecipeLogRecord {
 
     private String job;
 
+    private long job_recipe_id;
+
     private int status;
 
     @Getter

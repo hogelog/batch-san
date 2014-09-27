@@ -51,4 +51,19 @@ public class BatchDaemonTest {
             assertThat(jobRecipeLogs.get(0).getStatus(), is(JobRecipeLogTable.SUCCESS));
         }
     }
+
+    @Test
+    public void runWithJobRecipeId() throws Exception {
+        BatchDaemon daemon = new BatchDaemon(batchJobManager);
+        try (Connection connection = connections.getConnection()) {
+            jobRecipeLogTable.truncate(connection);
+
+            daemon.executeJob("{job: nop, options: {job_recipe_id: 10}}");
+
+            List<JobRecipeLogRecord> jobRecipeLogs = jobRecipeLogTable.getAll(connection);
+            assertThat(jobRecipeLogs.get(0).getJob(), is("nop"));
+            assertThat(jobRecipeLogs.get(0).getStatus(), is(JobRecipeLogTable.SUCCESS));
+            assertThat(jobRecipeLogs.get(0).getJob_recipe_id(), is(10L));
+        }
+    }
 }

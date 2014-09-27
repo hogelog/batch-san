@@ -1,5 +1,6 @@
 package org.hogel.batchsan.core.job.recipe;
 
+import com.google.common.base.Optional;
 import lombok.Data;
 import org.hogel.config.Config;
 import org.hogel.config.InvalidConfigException;
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Data
 public class JobRecipe extends Config {
+    public static String OPTION_JOB_RECIPE_ID = "job_recipe_id";
+
     @Attribute
     String job;
 
@@ -25,5 +28,17 @@ public class JobRecipe extends Config {
         JobRecipe jobRecipe = new JobRecipe();
         jobRecipe.load(recipe);
         return jobRecipe;
+    }
+
+    public Optional<Long> getJobRecipeId() {
+        if (options == null) {
+            return Optional.absent();
+        }
+        int jobRecipeId = options.getInt(OPTION_JOB_RECIPE_ID, 0);
+        if (jobRecipeId == 0) {
+            return Optional.absent();
+        } else {
+            return Optional.of(Long.valueOf(jobRecipeId));
+        }
     }
 }

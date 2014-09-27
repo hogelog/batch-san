@@ -78,7 +78,7 @@ public class BatchDaemon {
             JobRecipe jobRecipe = JobRecipe.loadRecipe(recipe);
             BatchJob batchJob = batchJobManager.createBatchJob(jobRecipe);
             try (Connection connection = connections.getConnection()) {
-                long logId = jobRecipeLogTable.insertLog(connection, jobRecipe.getJob());
+                long logId = jobRecipeLogTable.insertLog(connection, jobRecipe);
                 try {
                     batchJob.run();
                     jobRecipeLogTable.updateLogStatus(connection, logId, JobRecipeLogTable.SUCCESS);
