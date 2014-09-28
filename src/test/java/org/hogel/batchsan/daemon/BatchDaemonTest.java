@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class BatchDaemonTest {
@@ -39,7 +40,7 @@ public class BatchDaemonTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void runWithoutJobRecipeId() throws Exception {
         BatchDaemon daemon = new BatchDaemon(batchJobManager);
         try (Connection connection = connections.getConnection()) {
             jobRecipeLogTable.truncate(connection);
@@ -49,6 +50,7 @@ public class BatchDaemonTest {
             List<JobRecipeLogRecord> jobRecipeLogs = jobRecipeLogTable.getAll(connection);
             assertThat(jobRecipeLogs.get(0).getJob(), is("nop"));
             assertThat(jobRecipeLogs.get(0).getStatus(), is(JobRecipeLogTable.SUCCESS));
+            assertThat(jobRecipeLogs.get(0).getJob_recipe_id(), is(nullValue()));
         }
     }
 
