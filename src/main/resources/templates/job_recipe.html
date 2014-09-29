@@ -1,0 +1,17 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<ul th:each="job_recipe : ${job_recipes}">
+    <li>
+        <a href="/job_recipe/1" th:href="@{job_recipe/{job_recipe_id}(job_recipe_id=${job_recipe.id})}">
+            <code th:text="${job_recipe.recipe}">{job: nop, params: [], optinos: {}}</code>
+        </a>
+    </li>
+</ul>
+
+</body>
+</html>

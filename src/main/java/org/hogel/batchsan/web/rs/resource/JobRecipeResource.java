@@ -1,10 +1,9 @@
 package org.hogel.batchsan.web.rs.resource;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableMap;
 import org.hogel.batchsan.core.db.table.JobRecipeTable;
 import org.hogel.batchsan.core.db.table.record.JobRecipeRecord;
-import org.hogel.batchsan.core.job.recipe.JobRecipe;
-import org.hogel.config.InvalidConfigException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +14,7 @@ import javax.ws.rs.Produces;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Path("/job_recipe")
 public class JobRecipeResource extends BatchHttpResource {
@@ -28,18 +28,9 @@ public class JobRecipeResource extends BatchHttpResource {
         StringBuilder builder = new StringBuilder("## job recipes");
         try (Connection connection = getDbConnection()) {
             List<JobRecipeRecord> jobRecipeRecords = jobRecipeTable.getAll(connection);
-            for (JobRecipeRecord jobRecipeRecord : jobRecipeRecords) {
-                builder.append("- /").append(jobRecipeRecord.getId()).append(' ');
-                try {
-                    JobRecipe jobRecipe = JobRecipe.loadRecipe(jobRecipeRecord.getRecipe());
-                    builder.append(jobRecipe.getJob());
-                } catch (InvalidConfigException e) {
-                    LOG.error(e.getMessage(), e);
-                    builder.append("invalid");
-                }
-            }
+            Map<String, Object> params = ImmutableMap.of("job_recipes", (Object) jobRecipeRecords);
+            return template("job_recipe", params);
         }
-        return builder.toString();
     }
 
     @GET
