@@ -1,6 +1,6 @@
 package org.hogel.batchsan.web.rs;
 
-import org.hogel.batchsan.web.rs.resource.JobResource;
+import org.hogel.batchsan.web.rs.resource.JobRecipeResource;
 import org.hogel.batchsan.web.rs.resource.RootResource;
 
 import javax.ws.rs.ApplicationPath;
@@ -10,15 +10,15 @@ import java.util.Set;
 
 @ApplicationPath("/")
 public class BatchHttpApplication extends Application {
-    private static final Set<Class<?>> APPLICATION_CLASSES = new HashSet<>();
+    public static final Set<Class<?>> RESOURCE_CLASSES = new HashSet<>();
 
     static {
-        APPLICATION_CLASSES.add(RootResource.class);
-        APPLICATION_CLASSES.add(JobResource.class);
+        RESOURCE_CLASSES.add(RootResource.class);
+        RESOURCE_CLASSES.add(JobRecipeResource.class);
     }
 
     @Override
     public Set<Class<?>> getClasses() {
-        return APPLICATION_CLASSES;
+        return RESOURCE_CLASSES;
     }
 }

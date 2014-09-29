@@ -1,6 +1,6 @@
 package org.hogel.batchsan.core.db;
 
-import com.google.inject.Inject;
+import com.google.common.base.Optional;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
@@ -12,8 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DbClient {
-    @Inject
-    protected QueryRunner queryRunner;
+    protected QueryRunner queryRunner = new QueryRunner();
 
     public int update(Connection connection, String sql, Object... params) throws SQLException {
         return queryRunner.update(connection, sql, params);
@@ -31,8 +30,8 @@ public class DbClient {
         return ((Number) query(connection, "SELECT LAST_INSERT_ID();")[0]).longValue();
     }
 
-    public <T> T query(Connection connection, String sql, Class<T> klass, Object... params) throws SQLException {
-        return queryRunner.query(connection, sql, new BeanHandler<>(klass), params);
+    public <T> Optional<T> query(Connection connection, String sql, Class<T> klass, Object... params) throws SQLException {
+        return Optional.fromNullable(queryRunner.query(connection, sql, new BeanHandler<>(klass), params));
     }
 
     public Object[] query(Connection connection, String sql, Object... params) throws SQLException {

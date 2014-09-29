@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 @Path("/")
-public class RootResource {
+public class RootResource extends BatchHttpResource {
     @GET
     @Produces("text/plain")
     public String root() {

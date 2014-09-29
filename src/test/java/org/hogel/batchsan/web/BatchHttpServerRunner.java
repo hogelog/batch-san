@@ -1,7 +1,6 @@
 package org.hogel.batchsan.web;
 
 import org.hogel.batchsan.core.BatchConfig;
-import org.hogel.batchsan.core.BatchJobManager;
 import org.hogel.config.InvalidConfigException;
 
 public class BatchHttpServerRunner {
@@ -9,9 +8,7 @@ public class BatchHttpServerRunner {
         BatchConfig batchConfig = new BatchConfig();
         batchConfig.load("{}");
 
-        BatchJobManager batchJobManager = new BatchJobManager(batchConfig);
-
-        BatchHttpServer server = new BatchHttpServer(batchJobManager);
+        BatchHttpServer server = new BatchHttpServer(batchConfig);
         server.start();
     }
 }

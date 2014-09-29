@@ -1,26 +1,25 @@
 package org.hogel.batchsan.core.db.table;
 
 import com.google.common.base.Optional;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.jolbox.bonecp.BoneCP;
 import org.hogel.batchsan.core.BatchJobManager;
 import org.hogel.batchsan.core.TestBatchConfig;
-import org.hogel.batchsan.core.db.table.record.JobRecipeLogRecord;
+import org.hogel.batchsan.core.db.table.record.JobRecipeRecord;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class JobRecipeLogTableTest {
+public class JobRecipeTableTest {
     private TestBatchConfig config;
 
     @Inject
-    JobRecipeLogTable jobRecipeLogTable;
+    JobRecipeTable jobRecipeTable;
 
     @Inject
     BoneCP connections;
@@ -35,12 +34,10 @@ public class JobRecipeLogTableTest {
     }
 
     @Test
-    public void writeRead() throws Exception {
+    public void read() throws Exception {
         try (Connection connection = connections.getConnection()) {
-            long id = jobRecipeLogTable.insertLog(connection, "test");
-            Optional<JobRecipeLogRecord> record = jobRecipeLogTable.get(connection, id);
-            assertThat(record.get().getJob(), is("test"));
-            assertThat(record.get().getCreated_at(), is(notNullValue()));
+            Optional<JobRecipeRecord> record = jobRecipeTable.get(connection, 0);
+            assertThat(record.isPresent(), is(false));
         }
     }
 }

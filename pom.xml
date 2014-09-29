@@ -46,6 +46,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.db.name.test>batchsan_test</project.db.name.test>
         <project.db.url.test>jdbc:mysql://localhost/${project.db.name.test}</project.db.url.test>
+        <project.db.name.development>batchsan</project.db.name.development>
+        <project.db.url.development>jdbc:mysql://localhost/${project.db.name.development}</project.db.url.development>
     </properties>
 
     <repositories>
@@ -76,7 +78,12 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>4.0-beta4</version>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-servlet</artifactId>
+            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -101,7 +108,12 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-undertow</artifactId>
-            <version>3.0.8.Final</version>
+            <version>3.0.9.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-guice</artifactId>
+            <version>3.0.9.Final</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -231,7 +243,7 @@
             </build>
         </profile>
         <profile>
-            <id>test-db-flyway</id>
+            <id>development-db-flyway</id>
             <build>
                 <defaultGoal>flyway:info</defaultGoal>
                 <plugins>
@@ -250,7 +262,7 @@
 
                         <configuration>
                             <driver>com.mysql.jdbc.Driver</driver>
-                            <url>${project.db.url.test}</url>
+                            <url>${project.db.url.development}</url>
                             <user>username</user>
                             <password>password</password>
                             <locations>
@@ -262,5 +274,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>

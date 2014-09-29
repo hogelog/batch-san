@@ -44,7 +44,7 @@ public class JobRecipeLogTable extends BatchDatabaseTable {
         );
     }
 
-    public JobRecipeLogRecord get(Connection connection, long id) throws SQLException {
+    public Optional<JobRecipeLogRecord> get(Connection connection, long id) throws SQLException {
         return query(connection, "SELECT * FROM `job_recipe_log` WHERE `id` = ? LIMIT 1;", JobRecipeLogRecord.class, id);
     }
 
