@@ -3,10 +3,25 @@ html
   head
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
+    link(rel="stylesheet", href="/css/dashboard.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
     block head
     block title
       title batchsan
 
   body
-    block content
+    .navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+      .container-fluid
+        .navbar-header
+          a.navbar-brand(href="/") Batchsan Admin
+
+    .container-fluid
+      .row
+        .col-sm-3.col-md-2.sidebar
+          ul.nav.nav-sidebar
+            li
+              a(href="/job_recipe") Job Recipes
+
+        .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+          block content

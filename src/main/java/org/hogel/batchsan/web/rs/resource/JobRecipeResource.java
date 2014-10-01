@@ -18,36 +18,33 @@ import java.util.List;
 import java.util.Map;
 
 @Path("/job_recipe")
+@Produces("text/html")
 public class JobRecipeResource extends BatchHttpResource {
     private static final Logger LOG = LoggerFactory.getLogger(JobRecipeResource.class);
 
     private JobRecipeTable jobRecipeTable = new JobRecipeTable();
 
     @GET
-    @Produces("text/html")
-    public String jobRecipes() throws SQLException, IOException {
+    public String index() throws SQLException, IOException {
         StringBuilder builder = new StringBuilder("## job recipes");
         try (Connection connection = getDbConnection()) {
             List<JobRecipeRecord> jobRecipeRecords = jobRecipeTable.getAll(connection);
             Map<String, Object> params = ImmutableMap.of("jobRecipes", (Object) jobRecipeRecords);
-            return template("job_recipe", params);
+            return template("job_recipe/index", params);
         }
     }
 
     @GET
-    @Produces("text/html")
     @Path("/{id}")
-    public String jobRecipe(@PathParam("id") long id) {
+    public String show(@PathParam("id") long id) throws IOException, SQLException {
         try (Connection connection = getDbConnection()) {
             Optional<JobRecipeRecord> jobRecipeRecord = jobRecipeTable.get(connection, id);
             if (jobRecipeRecord.isPresent()) {
-                return jobRecipeRecord.get().getRecipe();
+                Map<String, Object> params = ImmutableMap.of("jobRecipe", (Object) jobRecipeRecord.get());
+                return template("job_recipe/show", params);
             } else {
-                return "not found";
+                return template("404");
             }
-        } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
-            return e.getMessage();
         }
     }
 }

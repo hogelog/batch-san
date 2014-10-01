@@ -1,8 +1,9 @@
-extends ./layout.jade
+extends ../layout.jade
 
 block content
+  h1.page-header Job Recipes
   ul
     each jobRecipe in jobRecipes
       li
         a(href="/job_recipe/" + jobRecipe.id)
-          code= jobRecipe.recipe
+          = jobRecipe.id

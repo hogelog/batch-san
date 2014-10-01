@@ -1,5 +1,6 @@
 package org.hogel.batchsan.web.rs;
 
+import org.hogel.batchsan.web.rs.resource.CssResource;
 import org.hogel.batchsan.web.rs.resource.JobRecipeResource;
 import org.hogel.batchsan.web.rs.resource.RootResource;
 
@@ -15,6 +16,7 @@ public class BatchHttpApplication extends Application {
     static {
         RESOURCE_CLASSES.add(RootResource.class);
         RESOURCE_CLASSES.add(JobRecipeResource.class);
+        RESOURCE_CLASSES.add(CssResource.class);
     }
 
     @Override

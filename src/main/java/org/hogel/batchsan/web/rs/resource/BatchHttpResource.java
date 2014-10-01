@@ -13,6 +13,7 @@ import javax.ws.rs.core.Context;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Map;
 
 public abstract class BatchHttpResource {
@@ -39,6 +40,11 @@ public abstract class BatchHttpResource {
     @SuppressWarnings("unchecked")
     protected Injector getInjector() {
         return (Injector) context.getAttribute(BatchHttpServer.ATTR_BATCH_INJECTOR);
+    }
+
+    protected String template(String templateName) throws IOException {
+        String resourceName = TEMPLATE_PREFIX + templateName + TEMPLATE_SUFFIX;
+        return Jade4J.render(getClass().getResource(resourceName).getFile(), Collections.<String, Object>emptyMap());
     }
 
     protected String template(String templateName, Map<String, Object> params) throws IOException {
