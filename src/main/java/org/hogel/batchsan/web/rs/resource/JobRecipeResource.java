@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,11 +25,11 @@ public class JobRecipeResource extends BatchHttpResource {
 
     @GET
     @Produces("text/html")
-    public String jobRecipes() throws SQLException {
+    public String jobRecipes() throws SQLException, IOException {
         StringBuilder builder = new StringBuilder("## job recipes");
         try (Connection connection = getDbConnection()) {
             List<JobRecipeRecord> jobRecipeRecords = jobRecipeTable.getAll(connection);
-            Map<String, Object> params = ImmutableMap.of("job_recipes", (Object) jobRecipeRecords);
+            Map<String, Object> params = ImmutableMap.of("jobRecipes", (Object) jobRecipeRecords);
             return template("job_recipe", params);
         }
     }
