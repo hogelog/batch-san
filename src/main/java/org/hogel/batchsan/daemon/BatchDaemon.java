@@ -2,11 +2,11 @@ package org.hogel.batchsan.daemon;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.jolbox.bonecp.BoneCP;
 import org.hogel.batchsan.core.BatchConfig;
 import org.hogel.batchsan.core.BatchJobManager;
 import org.hogel.batchsan.core.BatchRedisKey;
-import org.hogel.batchsan.core.db.table.JobRecipeLogTable;
+import org.hogel.batchsan.core.db.dao.JobRecipeLogDao;
+import org.hogel.batchsan.core.db.table.record.JobRecipeLogRecord;
 import org.hogel.batchsan.core.job.BatchJob;
 import org.hogel.batchsan.core.job.recipe.JobRecipe;
 import org.slf4j.Logger;
@@ -15,7 +15,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,10 +29,7 @@ public class BatchDaemon {
     BatchRedisKey batchRedisKey;
 
     @Inject
-    BoneCP connections;
-
-    @Inject
-    JobRecipeLogTable jobRecipeLogTable;
+    JobRecipeLogDao jobRecipeLogDao;
 
     private final BatchJobManager batchJobManager;
 
@@ -77,16 +73,14 @@ public class BatchDaemon {
         try {
             JobRecipe jobRecipe = JobRecipe.loadRecipe(recipe);
             BatchJob batchJob = batchJobManager.createBatchJob(jobRecipe);
-            try (Connection connection = connections.getConnection()) {
-                long logId = jobRecipeLogTable.insertLog(connection, jobRecipe);
+                JobRecipeLogRecord logRecord = jobRecipeLogDao.create(jobRecipe);
                 try {
                     batchJob.run();
-                    jobRecipeLogTable.updateLogStatus(connection, logId, JobRecipeLogTable.SUCCESS);
+                    jobRecipeLogDao.update(logRecord.getId(), JobRecipeLogDao.SUCCESS);
                 } catch (Exception e) {
                     LOG.error(e.getMessage(), e);
-                    jobRecipeLogTable.updateLogStatus(connection, logId, JobRecipeLogTable.FAILURE);
+                    jobRecipeLogDao.update(logRecord.getId(), JobRecipeLogDao.FAILURE);
                 }
-            }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }

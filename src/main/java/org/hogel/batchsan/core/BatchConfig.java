@@ -1,12 +1,14 @@
 package org.hogel.batchsan.core;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hogel.config.Config;
 import org.hogel.config.annotation.Attribute;
 import org.hogel.config.annotation.IntDefaultValue;
 import org.hogel.config.annotation.StringDefaultValue;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class BatchConfig extends Config {
     @Attribute
     @StringDefaultValue("localhost")

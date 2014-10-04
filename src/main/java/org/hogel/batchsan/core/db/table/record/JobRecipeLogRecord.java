@@ -1,22 +1,36 @@
 package org.hogel.batchsan.core.db.table.record;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.hogel.batchsan.core.db.dao.JobRecipeLogDao;
 
 import java.sql.Timestamp;
 
 @Data
-public class JobRecipeLogRecord {
+@RequiredArgsConstructor
+@NoArgsConstructor
+@DatabaseTable(tableName = "job_recipe_log", daoClass = JobRecipeLogDao.class)
+public class JobRecipeLogRecord implements BatchDatabaseRecord {
+    @DatabaseField(generatedId = true)
     private long id;
 
+    @NonNull
+    @DatabaseField(canBeNull = false)
     private String job;
 
-    private Long job_recipe_id;
+    @DatabaseField(columnName = "job_recipe_id")
+    private Long jobRecipeId;
 
+    @DatabaseField
     private int status;
 
-    @Getter
-    private Timestamp created_at;
+    @DatabaseField(columnName = "created_at", readOnly = true)
+    private Timestamp createdAt;
 
-    private Timestamp updated_at;
+    @DatabaseField(columnName = "updated_at", readOnly = true)
+    private Timestamp updatedAt;
 }

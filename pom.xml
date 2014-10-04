@@ -48,6 +48,7 @@
         <project.db.url.test>jdbc:mysql://localhost/${project.db.name.test}</project.db.url.test>
         <project.db.name.development>batchsan</project.db.name.development>
         <project.db.url.development>jdbc:mysql://localhost/${project.db.name.development}</project.db.url.development>
+        <project.flyway.db.url></project.flyway.db.url>
     </properties>
 
     <repositories>
@@ -121,19 +122,14 @@
             <version>5.1.32</version>
         </dependency>
         <dependency>
-            <groupId>commons-dbutils</groupId>
-            <artifactId>commons-dbutils</artifactId>
-            <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jolbox</groupId>
-            <artifactId>bonecp</artifactId>
-            <version>0.8.0.RELEASE</version>
-        </dependency>
-        <dependency>
             <groupId>de.neuland-bfi</groupId>
             <artifactId>jade4j</artifactId>
             <version>0.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-jdbc</artifactId>
+            <version>4.48</version>
         </dependency>
 
         <dependency>
@@ -212,12 +208,35 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>3.0</version>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.32</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <url>${project.flyway.db.url}</url>
+                    <user>username</user>
+                    <password>password</password>
+                    <locations>
+                        <location>filesystem:${project.basedir}/db/migration</location>
+                    </locations>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>test-db-create</id>
+            <id>db-create</id>
             <build>
                 <defaultGoal>sql:execute</defaultGoal>
                 <plugins>
@@ -248,35 +267,16 @@
             </build>
         </profile>
         <profile>
-            <id>development-db-flyway</id>
-            <build>
-                <defaultGoal>flyway:info</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.flywaydb</groupId>
-                        <artifactId>flyway-maven-plugin</artifactId>
-                        <version>3.0</version>
-
-                        <dependencies>
-                            <dependency>
-                                <groupId>mysql</groupId>
-                                <artifactId>mysql-connector-java</artifactId>
-                                <version>5.1.32</version>
-                            </dependency>
-                        </dependencies>
-
-                        <configuration>
-                            <driver>com.mysql.jdbc.Driver</driver>
-                            <url>${project.db.url.development}</url>
-                            <user>username</user>
-                            <password>password</password>
-                            <locations>
-                                <location>filesystem:${project.basedir}/db/migration</location>
-                            </locations>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <id>test</id>
+            <properties>
+                <project.flyway.db.url>${project.db.url.test}</project.flyway.db.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>development</id>
+            <properties>
+                <project.flyway.db.url>${project.db.url.development}</project.flyway.db.url>
+            </properties>
         </profile>
     </profiles>
 </project>

@@ -7,6 +7,7 @@ import java.lang.annotation.Annotation;
 import java.util.Map;
 
 public class OptionsLoader implements AttributeLoader<Options> {
+    @SuppressWarnings("unchecked")
     @Override
     public Options load(Annotation[] annotations, Object source) throws InvalidAttributeException {
         if (source == null) {

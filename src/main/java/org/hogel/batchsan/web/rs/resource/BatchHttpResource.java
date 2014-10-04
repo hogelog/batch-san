@@ -1,7 +1,6 @@
 package org.hogel.batchsan.web.rs.resource;
 
 import com.google.inject.Injector;
-import com.jolbox.bonecp.BoneCP;
 import de.neuland.jade4j.Jade4J;
 import org.hogel.batchsan.web.BatchHttpServer;
 
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Context;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -29,12 +26,8 @@ public abstract class BatchHttpResource {
     @Inject @Context
     protected ServletContext context;
 
-    protected Connection getDbConnection() throws SQLException {
-        return getDbConnections().getConnection();
-    }
-
-    protected BoneCP getDbConnections() {
-        return getInjector().getInstance(BoneCP.class);
+    protected <T> T getInstance(Class<T> instanceClass) {
+        return getInjector().getInstance(instanceClass);
     }
 
     @SuppressWarnings("unchecked")

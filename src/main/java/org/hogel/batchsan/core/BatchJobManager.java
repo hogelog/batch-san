@@ -9,8 +9,6 @@ import org.hogel.batchsan.core.guice.BatchBasicModule;
 import org.hogel.batchsan.core.job.BatchJob;
 import org.hogel.batchsan.core.job.NopJob;
 import org.hogel.batchsan.core.job.recipe.JobRecipe;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -19,11 +17,10 @@ import java.util.regex.Pattern;
 
 public class BatchJobManager {
 
+    @SuppressWarnings("unchecked")
     public static final Class<? extends BatchJob>[] BASIC_JOB_CLASSES = new Class[] {
         NopJob.class,
     };
-
-    private static final Logger LOG = LoggerFactory.getLogger(BatchJobManager.class);
 
     private static final Pattern JOB_CLASS_SUFFIX_PATTERN = Pattern.compile("_job$");
 

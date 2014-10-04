@@ -2,6 +2,7 @@ package org.hogel.batchsan.core.job.recipe;
 
 import com.google.common.base.Optional;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hogel.config.Config;
 import org.hogel.config.InvalidConfigException;
 import org.hogel.config.annotation.Attribute;
@@ -9,6 +10,7 @@ import org.hogel.config.annotation.Attribute;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class JobRecipe extends Config {
     public static String OPTION_JOB_RECIPE_ID = "job_recipe_id";
 
