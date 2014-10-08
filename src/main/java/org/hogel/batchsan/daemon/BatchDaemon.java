@@ -76,10 +76,10 @@ public class BatchDaemon {
                 JobRecipeLogRecord logRecord = jobRecipeLogDao.create(jobRecipe);
                 try {
                     batchJob.run();
-                    jobRecipeLogDao.update(logRecord.getId(), JobRecipeLogDao.SUCCESS);
+                    jobRecipeLogDao.update(logRecord.getId(), JobRecipeLogRecord.SUCCESS);
                 } catch (Exception e) {
                     LOG.error(e.getMessage(), e);
-                    jobRecipeLogDao.update(logRecord.getId(), JobRecipeLogDao.FAILURE);
+                    jobRecipeLogDao.update(logRecord.getId(), JobRecipeLogRecord.FAILURE);
                 }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);

@@ -7,12 +7,9 @@ import org.hogel.batchsan.core.db.table.record.JobRecipeLogRecord;
 import org.hogel.batchsan.core.job.recipe.JobRecipe;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class JobRecipeLogDao extends BatchDatabaseDao<JobRecipeLogRecord, Long>  {
-    public static final int PROGRESS = 0;
-    public static final int SUCCESS = 1;
-    public static final int FAILURE = 2;
-
     @Inject
     public JobRecipeLogDao(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, JobRecipeLogRecord.class);
@@ -39,5 +36,9 @@ public class JobRecipeLogDao extends BatchDatabaseDao<JobRecipeLogRecord, Long> 
         record.setId(id);
         record.setStatus(status);
         update(record);
+    }
+
+    public List<JobRecipeLogRecord> queryForJobRecipeId(long jobRecipeId) throws SQLException {
+        return queryForEq("job_recipe_id", jobRecipeId);
     }
 }

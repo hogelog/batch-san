@@ -12,3 +12,27 @@ block content
 
   .clearfix
     a.btn.btn-default.btn-lg.pull-right(href="/job_recipe/#{jobRecipe.id}/edit", role="button") Edit recipe
+
+  h2 Job Logs
+  table.table.table-striped
+    thead
+      tr
+        th #
+        th Status
+        th Start
+        th Finish
+    tbody
+    each jobRecipeLog in jobRecipeLogs
+      tr
+        td= jobRecipeLog.id
+        td
+          if jobRecipeLog.progress
+            span.label.label-info Progress
+          if jobRecipeLog.success
+            span.label.label-success Success
+          if jobRecipeLog.failure
+            span.label.label-danger Failure
+        td= jobRecipeLog.createdAt
+        td
+          if !jobRecipeLog.progress
+            = jobRecipeLog.updatedAt

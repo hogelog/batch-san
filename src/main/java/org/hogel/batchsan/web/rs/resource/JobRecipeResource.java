@@ -2,6 +2,8 @@ package org.hogel.batchsan.web.rs.resource;
 
 import com.google.common.collect.ImmutableMap;
 import org.hogel.batchsan.core.db.dao.JobRecipeDao;
+import org.hogel.batchsan.core.db.dao.JobRecipeLogDao;
+import org.hogel.batchsan.core.db.table.record.JobRecipeLogRecord;
 import org.hogel.batchsan.core.db.table.record.JobRecipeRecord;
 import org.hogel.batchsan.web.utils.JadeUtils;
 import org.slf4j.Logger;
@@ -45,7 +47,13 @@ public class JobRecipeResource extends BatchHttpResource {
         if (jobRecipeRecord == null) {
             return JadeUtils.template("404");
         }
-        Map<String, Object> params = ImmutableMap.of("jobRecipe", (Object) jobRecipeRecord);
+        JobRecipeLogDao logDao = getInstance(JobRecipeLogDao.class);
+        List<JobRecipeLogRecord> jobRecipeLogRecords = logDao.queryForJobRecipeId(id);
+
+        Map<String, Object> params = ImmutableMap.of(
+            "jobRecipe", (Object) jobRecipeRecord,
+            "jobRecipeLogs", (Object) jobRecipeLogRecords
+        );
         return JadeUtils.template("job_recipe/show", params);
     }
 
