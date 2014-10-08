@@ -22,9 +22,9 @@ public class JobRecipeRecord implements BatchDatabaseRecord {
     @DatabaseField(canBeNull = false)
     private String recipe;
 
-    @DatabaseField(canBeNull = false, readOnly = true)
+    @DatabaseField(columnName = "created_at", readOnly = true)
     private Timestamp createdAt;
 
-    @DatabaseField(canBeNull = false, readOnly = true)
+    @DatabaseField(columnName = "updated_at", readOnly = true)
     private Timestamp updatedAt;
 }

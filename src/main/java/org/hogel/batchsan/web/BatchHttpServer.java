@@ -1,15 +1,15 @@
 package org.hogel.batchsan.web;
 
-import com.google.inject.Guice;
 import io.undertow.Undertow;
 import io.undertow.servlet.api.DeploymentInfo;
 import org.hogel.batchsan.core.BatchConfig;
-import org.hogel.batchsan.core.guice.BatchBasicModule;
+import org.hogel.batchsan.core.BatchJobManager;
 import org.hogel.batchsan.web.rs.BatchHttpApplication;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 
 public class BatchHttpServer {
     public static final String ATTR_BATCH_CONFIG = "batch_config";
+    public static final String ATTR_BATCH_JOB_MANAGER = "batch_job_manager";
     public static final String ATTR_BATCH_INJECTOR = "batch_injector";
 
     private final UndertowJaxrsServer server;
@@ -26,8 +26,10 @@ public class BatchHttpServer {
         deploymentInfo.setDeploymentName("BatchHttpServer");
         deploymentInfo.setContextPath("/");
 
+        BatchJobManager manager = new BatchJobManager(config);
         deploymentInfo.addServletContextAttribute(ATTR_BATCH_CONFIG, config);
-        deploymentInfo.addServletContextAttribute(ATTR_BATCH_INJECTOR, Guice.createInjector(new BatchBasicModule(config)));
+        deploymentInfo.addServletContextAttribute(ATTR_BATCH_JOB_MANAGER, manager);
+        deploymentInfo.addServletContextAttribute(ATTR_BATCH_INJECTOR, manager.getInjector());
 
         server.deploy(deploymentInfo);
     }

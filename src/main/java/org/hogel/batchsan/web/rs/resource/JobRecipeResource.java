@@ -3,10 +3,13 @@ package org.hogel.batchsan.web.rs.resource;
 import com.google.common.collect.ImmutableMap;
 import org.hogel.batchsan.core.db.dao.JobRecipeDao;
 import org.hogel.batchsan.core.db.table.record.JobRecipeRecord;
+import org.hogel.batchsan.web.utils.JadeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,7 +28,13 @@ public class JobRecipeResource extends BatchHttpResource {
         JobRecipeDao dao = getInstance(JobRecipeDao.class);
         List<JobRecipeRecord> jobRecipeRecords = dao.queryForAll();
         Map<String, Object> params = ImmutableMap.of("jobRecipes", (Object) jobRecipeRecords);
-        return template("job_recipe/index", params);
+        return JadeUtils.template("job_recipe/index", params);
+    }
+
+    @GET
+    @Path("/add")
+    public String add() throws IOException {
+        return JadeUtils.template("job_recipe/add");
     }
 
     @GET
@@ -33,11 +42,39 @@ public class JobRecipeResource extends BatchHttpResource {
     public String show(@PathParam("id") long id) throws IOException, SQLException {
         JobRecipeDao dao = getInstance(JobRecipeDao.class);
         JobRecipeRecord jobRecipeRecord = dao.queryForId(id);
-        if (jobRecipeRecord != null) {
-            Map<String, Object> params = ImmutableMap.of("jobRecipe", (Object) jobRecipeRecord);
-            return template("job_recipe/show", params);
-        } else {
-            return template("404");
+        if (jobRecipeRecord == null) {
+            return JadeUtils.template("404");
         }
+        Map<String, Object> params = ImmutableMap.of("jobRecipe", (Object) jobRecipeRecord);
+        return JadeUtils.template("job_recipe/show", params);
+    }
+
+    @POST
+    public void create(@FormParam("recipeTextarea") String recipe) throws SQLException, IOException {
+        JobRecipeDao dao = getInstance(JobRecipeDao.class);
+        JobRecipeRecord jobRecipeRecord = dao.create(recipe);
+        response.sendRedirect("/job_recipe/" + jobRecipeRecord.getId());
+    }
+
+    @GET
+    @Path("/{id}/edit")
+    public String edit(@PathParam("id") long id) throws IOException, SQLException {
+        JobRecipeDao dao = getInstance(JobRecipeDao.class);
+        JobRecipeRecord jobRecipeRecord = dao.queryForId(id);
+        if (jobRecipeRecord == null) {
+            return JadeUtils.template("404");
+        }
+        Map<String, Object> params = ImmutableMap.of("jobRecipe", (Object) jobRecipeRecord);
+        return JadeUtils.template("job_recipe/edit", params);
+    }
+
+    @POST
+    @Path("/{id}/update")
+    public void update(@PathParam("id") long id, @FormParam("recipe") String recipe) throws SQLException, IOException {
+        JobRecipeDao dao = getInstance(JobRecipeDao.class);
+        JobRecipeRecord jobRecipeRecord = dao.queryForId(id);
+        jobRecipeRecord.setRecipe(recipe);
+        dao.update(jobRecipeRecord);
+        response.sendRedirect("/job_recipe/" + id);
     }
 }

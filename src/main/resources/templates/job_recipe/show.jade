@@ -1,6 +1,11 @@
 extends ../layout.jade
 
 block content
-  h1.page-header Job Recipe: #{jobRecipe.id}
+  h1.page-header JOB NAME
+
+  h2 Job Definition
   pre
     = jobRecipe.recipe
+
+  .clearfix
+    a.btn.btn-default.btn-lg.pull-right(href="/job_recipe/#{jobRecipe.id}/edit", role="button") Edit recipe

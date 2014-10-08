@@ -2,8 +2,18 @@ extends ../layout.jade
 
 block content
   h1.page-header Job Recipes
-  ul
-    each jobRecipe in jobRecipes
-      li
-        a(href="/job_recipe/" + jobRecipe.id)
-          = jobRecipe.id
+
+  .clearfix
+    a.btn.btn-default.btn-lg.pull-right(href="/job_recipe/add", role="button") New recipe
+
+  table.table.table-striped
+    thead
+      tr
+        th #
+        th Name
+    tbody
+      each jobRecipe in jobRecipes
+        tr
+          td= jobRecipe.id
+          td
+            a(href="/job_recipe/" + jobRecipe.id) JOB NAME
