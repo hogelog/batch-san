@@ -1,9 +1,12 @@
 extends ../layout.jade
 
 block content
-  h1.page-header JOB NAME
+  h1.page-header Edit #{jobRecipe.name}
 
   form.clearfix(role="form", method="POST", action="/job_recipe/#{jobRecipe.id}/update")
+    .form-group
+      label(for="name")
+      input#name.form-control(type="text", placeholder="Sample job", name="name", value=jobRecipe.name)
     .form-group
       label(for="recipe") Recipe
       textarea#recipe.form-control(rows="10", placeholder="job: nop", name="recipe")=jobRecipe.recipe

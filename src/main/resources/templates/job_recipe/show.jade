@@ -1,7 +1,10 @@
 extends ../layout.jade
 
 block content
-  h1.page-header JOB NAME
+  h1.page-header= jobRecipe.name
+
+  form.clearfix(method="POST", action="/job_recipe/#{jobRecipe.id}/launch")
+    button.btn.btn-primary.btn-lg.pull-right(type="submit") Launch
 
   h2 Job Definition
   pre

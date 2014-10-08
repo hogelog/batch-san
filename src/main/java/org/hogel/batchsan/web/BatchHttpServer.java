@@ -25,6 +25,7 @@ public class BatchHttpServer {
         DeploymentInfo deploymentInfo = server.undertowDeployment(BatchHttpApplication.class);
         deploymentInfo.setDeploymentName("BatchHttpServer");
         deploymentInfo.setContextPath("/");
+        deploymentInfo.setDefaultEncoding("UTF-8");
 
         BatchJobManager manager = new BatchJobManager(config);
         deploymentInfo.addServletContextAttribute(ATTR_BATCH_CONFIG, config);

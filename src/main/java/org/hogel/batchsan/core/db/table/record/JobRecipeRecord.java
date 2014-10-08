@@ -20,6 +20,10 @@ public class JobRecipeRecord implements BatchDatabaseRecord {
 
     @NonNull
     @DatabaseField(canBeNull = false)
+    private String name;
+
+    @NonNull
+    @DatabaseField(canBeNull = false)
     private String recipe;
 
     @DatabaseField(columnName = "created_at", readOnly = true)

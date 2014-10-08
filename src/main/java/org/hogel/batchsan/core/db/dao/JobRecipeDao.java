@@ -11,10 +11,4 @@ public class JobRecipeDao extends BatchDatabaseDao<JobRecipeRecord, Long> {
     public JobRecipeDao(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, JobRecipeRecord.class);
     }
-
-    public JobRecipeRecord create(String job) throws SQLException {
-        JobRecipeRecord record = new JobRecipeRecord(job);
-        create(record);
-        return record;
-    }
 }

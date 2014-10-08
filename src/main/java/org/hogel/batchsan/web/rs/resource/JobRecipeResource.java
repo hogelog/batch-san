@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Path("/job_recipe")
-@Produces("text/html")
+@Produces("text/html;charset=UTF-8")
 public class JobRecipeResource extends BatchHttpResource {
     private static final Logger LOG = LoggerFactory.getLogger(JobRecipeResource.class);
 
@@ -50,9 +50,10 @@ public class JobRecipeResource extends BatchHttpResource {
     }
 
     @POST
-    public void create(@FormParam("recipeTextarea") String recipe) throws SQLException, IOException {
+    public void create(@FormParam("name") String name, @FormParam("recipe") String recipe) throws SQLException, IOException {
         JobRecipeDao dao = getInstance(JobRecipeDao.class);
-        JobRecipeRecord jobRecipeRecord = dao.create(recipe);
+        JobRecipeRecord jobRecipeRecord = new JobRecipeRecord(name, recipe);
+        dao.create(jobRecipeRecord);
         response.sendRedirect("/job_recipe/" + jobRecipeRecord.getId());
     }
 
@@ -70,11 +71,26 @@ public class JobRecipeResource extends BatchHttpResource {
 
     @POST
     @Path("/{id}/update")
-    public void update(@PathParam("id") long id, @FormParam("recipe") String recipe) throws SQLException, IOException {
+    public void update(
+        @PathParam("id") long id,
+        @FormParam("name") String name,
+        @FormParam("recipe") String recipe
+    ) throws SQLException, IOException {
         JobRecipeDao dao = getInstance(JobRecipeDao.class);
         JobRecipeRecord jobRecipeRecord = dao.queryForId(id);
+        jobRecipeRecord.setName(name);
         jobRecipeRecord.setRecipe(recipe);
         dao.update(jobRecipeRecord);
+        response.sendRedirect("/job_recipe/" + id);
+    }
+
+    @POST
+    @Path("/{id}/launch")
+    public void launch(@PathParam("id") long id) throws SQLException, IOException {
+//        JobRecipeDao dao = getInstance(JobRecipeDao.class);
+//        JobRecipeRecord jobRecipeRecord = dao.queryForId(id);
+//        dao.update(jobRecipeRecord);
+//        jobQueue.postJob(JobRecipe.fromRecord(jobRecipeRecord));
         response.sendRedirect("/job_recipe/" + id);
     }
 }

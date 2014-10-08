@@ -5,8 +5,11 @@ block content
 
   form.clearfix(role="form", method="POST", action="/job_recipe")
     .form-group
-      label(for="recipeTextarea")
-      textarea#recipeTextarea.form-control(rows="10", placeholder="job: nop", name="recipeTextarea")
+      label(for="name")
+      input#name.form-control(type="text", placeholder="Sample job", name="name")
+    .form-group
+      label(for="recipe")
+      textarea#recipe.form-control(rows="10", placeholder="job: nop", name="recipe")
 
     button.btn.btn-default.btn-lg.pull-right(type="submit") Create
 
