@@ -31,14 +31,12 @@ public class JobRecipeLogDao extends BatchDatabaseDao<JobRecipeLogRecord, Long> 
         return record;
     }
 
-    public void update(long id, int status) throws SQLException {
-        JobRecipeLogRecord record = new JobRecipeLogRecord();
-        record.setId(id);
-        record.setStatus(status);
-        update(record);
-    }
-
     public List<JobRecipeLogRecord> queryForJobRecipeId(long jobRecipeId) throws SQLException {
-        return queryForEq("job_recipe_id", jobRecipeId);
+        return queryBuilder()
+            .orderBy("id", false)
+            .limit(50L)
+            .where()
+            .eq("job_recipe_id", jobRecipeId)
+            .query();
     }
 }

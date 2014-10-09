@@ -5,7 +5,10 @@ import org.hogel.batchsan.core.db.dao.JobRecipeDao;
 import org.hogel.batchsan.core.db.dao.JobRecipeLogDao;
 import org.hogel.batchsan.core.db.table.record.JobRecipeLogRecord;
 import org.hogel.batchsan.core.db.table.record.JobRecipeRecord;
+import org.hogel.batchsan.core.job.recipe.JobRecipe;
+import org.hogel.batchsan.core.queue.JobQueue;
 import org.hogel.batchsan.web.utils.JadeUtils;
+import org.hogel.config.InvalidConfigException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,11 +97,14 @@ public class JobRecipeResource extends BatchHttpResource {
 
     @POST
     @Path("/{id}/launch")
-    public void launch(@PathParam("id") long id) throws SQLException, IOException {
-//        JobRecipeDao dao = getInstance(JobRecipeDao.class);
-//        JobRecipeRecord jobRecipeRecord = dao.queryForId(id);
-//        dao.update(jobRecipeRecord);
-//        jobQueue.postJob(JobRecipe.fromRecord(jobRecipeRecord));
+    public void launch(@PathParam("id") long id) throws SQLException, IOException, InvalidConfigException {
+        JobRecipeDao dao = getInstance(JobRecipeDao.class);
+        JobRecipeRecord jobRecipeRecord = dao.queryForId(id);
+
+        JobRecipe jobRecipe = JobRecipe.loadRecipe(jobRecipeRecord.getRecipe());
+        jobRecipe.setJobRecipeId(id);
+        JobQueue jobQueue = getInstance(JobQueue.class);
+        jobQueue.enqueue(jobRecipe.toRecipeString());
         response.sendRedirect("/job_recipe/" + id);
     }
 }
