@@ -51,19 +51,12 @@
         <project.flyway.db.url></project.flyway.db.url>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -191,22 +184,14 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.4</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <executable>gpg2</executable>
-                    <useAgent>true</useAgent>
+                    <nexusUrl>http://oss.sonatype.org/</nexusUrl>
+                    <serverId>sonatype</serverId>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.flywaydb</groupId>
