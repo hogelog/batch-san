@@ -75,11 +75,6 @@
             <version>3.0</version>
         </dependency>
         <dependency>
-            <groupId>com.google.inject.extensions</groupId>
-            <artifactId>guice-servlet</artifactId>
-            <version>3.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.7</version>
@@ -95,29 +90,9 @@
             <version>2.5.2</version>
         </dependency>
         <dependency>
-            <groupId>io.undertow</groupId>
-            <artifactId>undertow-servlet</artifactId>
-            <version>1.0.15.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-undertow</artifactId>
-            <version>3.0.9.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-guice</artifactId>
-            <version>3.0.9.Final</version>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.32</version>
-        </dependency>
-        <dependency>
-            <groupId>de.neuland-bfi</groupId>
-            <artifactId>jade4j</artifactId>
-            <version>0.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.j256.ormlite</groupId>
