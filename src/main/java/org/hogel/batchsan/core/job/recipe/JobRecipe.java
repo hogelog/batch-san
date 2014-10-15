@@ -63,4 +63,12 @@ public class JobRecipe extends Config {
         recipeMap.put("params", params);
         return yaml.dump(recipeMap);
     }
+
+    public Object getParam(int index) {
+        return params.get(index);
+    }
+
+    public Object getOption(Object key) {
+        return options.get(key);
+    }
 }
