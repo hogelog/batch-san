@@ -1,3 +1,3 @@
 [submodule "batch-san-console"]
 	path = batch-san-console
-	url = git@github.com:hogelog/batch-san-console.git
+	url = https://github.com/hogelog/batch-san-console.git
