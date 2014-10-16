@@ -1,5 +1,6 @@
 package org.hogel.batchsan.core.guice;
 
+import com.google.common.eventbus.EventBus;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
@@ -19,5 +20,6 @@ public class BatchBasicModule implements Module {
         binder.bind(BatchConfig.class).toInstance(batchConfig);
         binder.bind(BatchRedisKey.class).toInstance(new BatchRedisKey(batchConfig));
         binder.bind(ConnectionSource.class).toProvider(ConnectionSourceProvider.class).in(Singleton.class);
+        binder.bind(EventBus.class).toInstance(new EventBus("batchsan"));
     }
 }
