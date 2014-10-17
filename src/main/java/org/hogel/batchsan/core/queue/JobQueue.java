@@ -28,6 +28,7 @@ public class JobQueue {
         this.config = config;
         this.redisKey = redisKey;
         jedisPool = new JedisPool(new JedisPoolConfig(), config.getRedisHost(), config.getRedisPort(), config.getRedisTimeout());
+        LOG.info("Redis: connect to {}:{}", config.getRedisHost(), config.getRedisPort());
     }
 
     public void enqueue(String jobRecipe) {
